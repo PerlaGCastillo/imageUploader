@@ -1,0 +1,31 @@
+{
+  "name": "imageuploader",
+  "version": "1.0.0",
+  "description": "learning Node, Express and EJS with  https://shorturl.at/sAO36",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PerlaGCastillo/imageUploader.git"
+  },
+  "author": "prrr",
+  "license": "CC0-1.0",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.3",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.2.0",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "bugs": {
+    "url": "https://github.com/PerlaGCastillo/imageUploader/issues"
+  },
+  "homepage": "https://github.com/PerlaGCastillo/imageUploader#readme"
+}
