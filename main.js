@@ -8,19 +8,14 @@ const app = express()
 const PORT = process.env.PORT || 4000  
 
 //database connection
-const db = async(name, email, phone, image, created) =>{
+const db = async(req, res) =>{
     try {
-        await mongoose.connect(process.env.DB_URI, { useNewUrlParser: true , useUnifiedTopology: true})
+        await mongoose.connect(process.env.DB_URI, { useNewUrlParser: true})
         console.log("Connected to the db")
     } catch (error) {
         console.log('error', error)
     }
 }
-// mongoose.connect(process.env.DB_URI, { useNewUrlParser: true })
-// const db = mongoose.connection
-// db.on("error", (error) => console.log(error))  
-// db.once("open", () => console.log("Connected to the db"))  
-
 
 //middlewares
 app.use(express.urlencoded({ extended: false }))  
@@ -45,10 +40,6 @@ app.set("view engine", "ejs")
 
 //route prefix
 app.use("", require("./routes/routes"))  
-
-// app.get("/", (req, res) => {
-//   res.send("hello world")
-// })
 
 app.listen(PORT, () => {
   console.log(`server starded at http:localhost//:${PORT}`)  
