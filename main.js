@@ -8,14 +8,12 @@ const app = express()
 const PORT = process.env.PORT || 4000  
 
 //database connection
-const db = async(req, res) =>{
-    try {
-        await mongoose.connect(process.env.DB_URI, { useNewUrlParser: true})
-        console.log("Connected to the db")
-    } catch (error) {
-        console.log('error', error)
-    }
-}
+mongoose.connect(process.env.DB_URI, { useNewUrlParser: true})
+.then(()=>{
+    console.log("Connected to the db")
+}).catch ((e) =>{
+    console.log('error', error)
+})   
 
 //middlewares
 app.use(express.urlencoded({ extended: false }))  
