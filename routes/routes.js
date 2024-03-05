@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const User = require("../models/users")
 const multer = require("multer")
+const users = require("../models/users")
 
 //image upload
 var storage = multer.diskStorage({
@@ -38,17 +39,31 @@ router.post("/add", upload, (req, res) => {
 })
 
 //get all users route
-router.get("/", (req, res) => {
-      User.find().then((err, users) => {
-      res.render("index", {
-        title: "home",
-        users: users
-      })
+//[TODO: Cannot read properties of undefined (reading 'forEach') 26INDEX ]
+router.get('/', (req, res) => {
+  User.find().then((err, users) => {
+    res.render("index", {
+      title: "home",
+      users: users
     })
-    .catch((err) => {
-      res.json({ message: err.message })
-    })
+  }).catch((err) => {
+    res.json({ message: err.message })
+  })
 })
+
+//get all users route
+// router.get("/", (req, res) =>{
+//   User.find().exec((err, users) => {
+//     if(err){
+//       res.json({ message: err.message })
+//     } else{
+//       res.render("index", {
+//         title: "home",
+//         users: users,
+//       })
+//     }
+//   })
+// })
 
 router.get("/add", (req, res) => {
   res.render("add_user", { title: "Add Users" })
