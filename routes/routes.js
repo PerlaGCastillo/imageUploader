@@ -1,21 +1,21 @@
-const express = require("express");
-const router = express.Router();
-const User = require("../models/users");
-const multer = require("multer");
+const express = require("express")
+const router = express.Router()
+const User = require("../models/users")
+const multer = require("multer")
 
 //image upload
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads");
+    cb(null, "./uploads")
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+    cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname)
   },
-});
+})
 
 var upload = multer({
   storage: storage,
-}).single("image");
+}).single("image")
 
 //isnert an user into db
 router.post("/add", upload, (req, res) => {
@@ -24,37 +24,34 @@ router.post("/add", upload, (req, res) => {
     email: req.body.email,
     phone: req.body.phone,
     image: req.file.filename,
-  });
-  user
-    .save()
-    .then(() => {
+  })
+  user.save().then(() => {
       req.session.message = {
         type: "success",
         message: "user added successfuly",
-      };
-      res.redirect("/");
+      }
+      res.redirect("/")
     })
     .catch((err) => {
-      res.json({ message: err.message, type: "danger" });
-    });
-});
+      res.json({ message: err.message, type: "danger" })
+    })
+})
 
 //get all users route
 router.get("/", (req, res) => {
-  User.find()
-    .then((err, users) => {
+      User.find().then((err, users) => {
       res.render("index", {
         title: "home",
-        users: users,
-      });
+        users: users
+      })
     })
     .catch((err) => {
-      res.json({ message: err.message });
-    });
-});
+      res.json({ message: err.message })
+    })
+})
 
 router.get("/add", (req, res) => {
-  res.render("add_user", { title: "Add Users" });
-});
+  res.render("add_user", { title: "Add Users" })
+})
 
-module.exports = router;
+module.exports = router
