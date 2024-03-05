@@ -3,17 +3,10 @@ const router = express.Router()
 const User = require("../models/users")
 const multer = require("multer")
 const users = require("../models/users")
-const fe = require("fs")
+const fs = require("fs")
 
 //image upload
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "./uploads")
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname)
-//   },
-// })
+
 const storage = multer.diskStorage({
   destination: "./uploads",
   filename: function (req, file, cb) {
@@ -21,10 +14,9 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + "_" + uniqueSuffix + "_" + file.originalname);
   },
 });
-
 const upload = multer({ storage: storage,}).single("image")
 
-//isnert an user into db
+//isert an user into db
 router.post("/add", upload,  (req, res) => {
   const user = new User({
     name: req.body.name,
@@ -65,18 +57,6 @@ router.get("/", async (req, res) => {
     res.redirect("/")
   }
 })
-//[TODO: Cannot read properties of undefined (reading 'forEach') 26INDEX ]
-// router.get('/', (req, res) => {
-//   User.find().then((err, users) => {
-//     res.render("index", {
-//       title: "home",
-//       users: users
-//     })
-//   }).catch((err) => {
-//     res.json({ message: err.message })
-//   })
-// })
-
 
 router.get("/add", (req, res) => {
   res.render("add_user", { title: "Add Users" })
@@ -123,7 +103,7 @@ router.post("/update/:id", upload, async (req, res) => {
       throw new Error("User not found")
     }
 
-    // Remove the previous image file if a new image was uploaded
+    // remove the previous img file if a new img was uploaded
     if (req.file) {
       try {
         fs.unlinkSync(`./uploads/${req.body.old_image}`)
@@ -147,7 +127,7 @@ router.post("/update/:id", upload, async (req, res) => {
   }
 })
 
-// Edit a user route
+// edit
 router.get("/edit/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -186,7 +166,7 @@ router.post("/update/:id", upload, async (req, res) => {
       throw new Error("User not found");
     }
 
-    // Remove the previous image file if a new image was uploaded
+    // remove the previous img file if a new img was uploaded
     if (req.file) {
       try {
         fs.unlinkSync(`./uploads/${req.body.old_image}`);
@@ -210,7 +190,7 @@ router.post("/update/:id", upload, async (req, res) => {
   }
 });
 
-// Delete user route functionality goes here
+// delete user 
 router.get("/delete/:id", (req, res) => {
   let id = req.params.id
   User.findOneAndDelete({ _id: id })
