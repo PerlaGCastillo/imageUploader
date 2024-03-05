@@ -3,8 +3,7 @@
   <div class="row my-4">
     <div class="col-lg-12">
       <% if (message) { %>
-      <div class="alert alert-dismissible fade show alert-<%= message.type%>"
-        role="alert">
+      <div class="alert alert-dismissible fade show alert-<%= message.type%>" role="alert">
         <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         <strong><%= message.message %></strong>
       </div>
@@ -25,17 +24,17 @@
           <tbody>
             <% users.forEach((row,index) => { %>
               <tr class="align-middle">
-                <th><%= index %></th>
-                <th>
+                <td><%= index %></td>
+                <td>
                   <img src="<%= row.image %>" width="50" class="img-thumbnail" />
-                </th>
-                <th><%= row.name %></th>
-                <th><%= row.email %></th>
-                <th><%= row.phone %></th>
-                <th class="text-center">
+                </td>
+                <td><%= row.name %></td>
+                <td><%= row.email %></td>
+                <td><%= row.phone %></td>
+                <td class="text-center">
                   <a href="/edit/<%= row._id %>" class="text-success"><i class="fas fa-edit da-lg mx-1"></i></a>
                   <a href="/delete/<%= row._id %>" class="text-danger"><i class="fas fa-trash da-lg mx-1"></i></a>
-                </th>
+                </td>
               </tr>
             <% }) %>
           </tbody>
